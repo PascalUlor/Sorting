@@ -18,14 +18,11 @@ def selection_sort(arr):
 
 # TO-DO:  implement the Bubble Sort function below
 def bubble_sort(arr):
+   # loop
     for i in range(0, len(arr) - 1):
-        cur_index = i
-        smallest_index = cur_index
-        for j in range(cur_index, len(arr)):
-            if arr[j] < arr[smallest_index]:
-                smallest_index = j
-
-        arr[cur_index], arr[smallest_index] = arr[smallest_index], arr[cur_index]
+        for j in range(0, len(arr)-1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
     return arr
 
@@ -60,14 +57,11 @@ def count_sort(arr, maximum=-1):
     # populate count array using the count of each array value as its index
     for i in range(0, len(arr)):
         count_array[arr[i]] += 1
-
-    print('==init==', count_array)
  
     # take cumulative sum from of each value in count array
     for i in range(1, k+1, 1):
         count_array[i] = count_array[i] + count_array[i-1]
  
-    print('==final==', count_array)
     
    # initialize sorted/output array
     sorted_array = [0]*len(arr)
@@ -76,7 +70,6 @@ def count_sort(arr, maximum=-1):
     # placing the values from main array in each index.
     # decrement count array by 1 in each iteration
     for i in range(len(arr)-1, -1, -1):
-        print('==final==', count_array[arr[i]] ,'=====', arr[i])
         count_array[arr[i]] -= 1
         sorted_array[count_array[arr[i]]] = arr[i]
         
@@ -85,8 +78,5 @@ def count_sort(arr, maximum=-1):
         if i < 0:
             sorted_array = 'Error, negative numbers not allowed in Count Sort'
     arr = sorted_array
-    print('==final+++++==',sorted_array)
-
-    return arr
 
     return arr
