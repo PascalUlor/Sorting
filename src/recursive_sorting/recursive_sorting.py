@@ -44,14 +44,71 @@ def merge_sort(arr):
 
 
 # STRETCH: implement an in-place merge sort algorithm
+"""
+Approach:
+Maintain two pointers which point to start of the segments which have to be merged.
+Compare the elements at which the pointers are present.
+If element1 < element2 then element1 is at right position, simply increase pointer1.
+Else place element2 in its right position and all the elements 
+at the right of element2 will be shifted right by one position.
+Increment all the pointers by 1.
+"""
+# Merges two subarrays of arr[]. 
+# First subarray is arr[l..m] 
+# Second subarray is arr[m+1..r] 
+# Inplace Implementation 
 def merge_in_place(arr, start, mid, end):
     # TO-DO
+    # get a second start point from mid-point
+    start2 = mid + 1
+
+    # If the adjacent items is already sorted return
+    if arr[mid] < arr[start2]:
+        return
+
+    # Two pointers to maintain start
+    # of both arrays to merge
+    while start <= mid and start2 <= end:
+        # element 1 = arr[start]
+        # element 2 = arr[start2]
+        # If element 1 is in right place incerement index of element 1
+        # else swap
+        if arr[start] < arr[start2]:
+            start += 1
+        else:
+            value = arr[start2]
+            index = start2
+
+                # Shift all the elements between element 1 
+                # element 2, right by 1. (Swap)
+            while index != start:
+                arr[index] = arr[index - 1]
+                index -= 1
+
+            arr[start] = value
+
+            # Update all the pointers 
+            start += 1
+            mid += 1
+            start2 += 1
 
     return arr
 
+"""
+l is for left index and r is right index of the  
+sub-array of arr to be sorted
+"""
 
 def merge_sort_in_place(arr, l, r):
     # TO-DO
+    if l < r:
+        # Same as (l + r) / 2, but avoids overflow 
+        # for large l and r
+        median = int(l + (r - l)/2)
+        #Sort first and second halves 
+        merge_sort_in_place(arr, l, median)
+        merge_sort_in_place(arr, median + 1, r)
+        merge_in_place(arr, l, median, r)
 
     return arr
 
